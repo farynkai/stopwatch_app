@@ -10,9 +10,7 @@ import { StopWatch } from '../../interfaces/stopwatch';
   templateUrl: './stopwatch.component.html',
   styleUrls: ['./stopwatch.component.css'],
 })
-export class StopwatchComponent
-  extends UnsubscriberComponent
-  implements OnDestroy
+export class StopwatchComponent extends UnsubscriberComponent implements OnDestroy
 {
   stopwatch: StopWatch;
   startBtn = true;
@@ -22,9 +20,9 @@ export class StopwatchComponent
 
   constructor(private timerService: TimeService) {
     super();
-    this.timerService.stopWatch
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((val: StopWatch) => (this.stopwatch = val));
+    this.timerService.stopWatch.pipe(
+        takeUntil(this.destroyed$)
+    ).subscribe((val: StopWatch) => (this.stopwatch = val));
   }
 
   startStopwatch(): void {
@@ -47,9 +45,7 @@ export class StopwatchComponent
     if (this.firstClick) {
       this.lastClicked = new Date().getTime();
       this.firstClick = false;
-      timeout = setTimeout(() => {
-        this.firstClick = true;
-      }, 1000);
+      timeout = setTimeout(() => { this.firstClick = true; }, 1000);
     } else {
       const timeNow = new Date().getTime();
       if (timeNow < this.lastClicked + 300) {

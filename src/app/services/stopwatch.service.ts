@@ -28,9 +28,9 @@ export class TimeService {
     if (this.isRunning) {
       return;
     }
-    this.timerSubscription = timer(0, 100)
-      .pipe(map((value: number): number => value + this.lastStopedTime))
-      .subscribe(this.timer$);
+    this.timerSubscription = timer(0, 100).pipe(
+        map((value: number): number => value + this.lastStopedTime)
+      ).subscribe(this.timer$);
     this.isRunning = true;
   }
 
