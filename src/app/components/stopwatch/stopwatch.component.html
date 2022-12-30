@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="stopwatch">
+    <span>{{stopwatch.hours}} : </span>
+    <span>{{stopwatch.minutes}} : </span>
+    <span>{{stopwatch.seconds}}</span>
+  </div>
+  <div class="button-container">
+    <button (click)="startStopwatch()" *ngIf="startBtn">Start</button>
+    <button (click)="stopStopwatch()" *ngIf="!startBtn">Stop</button>
+    <button (click)="resetStopwatch()">Reset</button>
+    <button (click)="waitStopwatch()" #wait>Wait</button> 
+  </div>
+</div>

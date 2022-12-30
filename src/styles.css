@@ -1,3 +1,6 @@
 body {
-  background-color: #6288df14;
+  background: #1F2937;
+  color:#F3F4F6;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

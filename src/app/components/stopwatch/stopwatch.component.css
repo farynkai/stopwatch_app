@@ -1,0 +1,36 @@
+.container {
+  width:100%;
+  max-width: 380px;
+  background: #111827;
+  margin: 4rem auto;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+.stopwatch {
+  font-size: 5rem;
+  font-weight: 300;
+  margin-bottom: 1rem; 
+}
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+button {
+  cursor:pointer;
+  border: none;
+  appearance: none;
+  font-size: 1.125rem;
+  color:#F3F4F6;
+  background-color: crimson;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: 0.4s;
+}
+button:hover {
+  opacity: 0.7;
+}
+button:active {
+  background-color: #1F2937;
+}
