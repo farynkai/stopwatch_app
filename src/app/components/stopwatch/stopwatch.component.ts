@@ -1,9 +1,10 @@
 import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import {buffer, take, takeUntil, tap, debounceTime, map} from 'rxjs/operators';
 
 import { UnsubscriberComponent } from './../unsubscriber/unsubscriber.component';
 import { TimeService } from '../../services/stopwatch.service';
 import { StopWatch } from '../../interfaces/stopwatch';
+import {fromEvent, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-stopwatch',
@@ -14,10 +15,10 @@ export class StopwatchComponent extends UnsubscriberComponent implements OnDestr
 {
   stopwatch: StopWatch;
   startBtn = true;
-  firstClick: boolean = true;
-  lastClicked: number;
+  firstClick = true;
+  lastClicked = 0;
+  subscriptionsDbClick: Subscription;
   @ViewChild('wait') waitBtn: ElementRef;
-
   constructor(private timerService: TimeService) {
     super();
     this.timerService.stopWatch.pipe(
@@ -41,19 +42,20 @@ export class StopwatchComponent extends UnsubscriberComponent implements OnDestr
   }
 
   waitStopwatch(): void {
-    let timeout;
-    if (this.firstClick) {
-      this.lastClicked = new Date().getTime();
-      this.firstClick = false;
-      timeout = setTimeout(() => { this.firstClick = true; }, 1000);
-    } else {
-      const timeNow = new Date().getTime();
-      if (timeNow < this.lastClicked + 300) {
-        this.timerService.stopStopwatch();
-        this.startBtn = true;
-      }
-      this.firstClick = true;
-      clearTimeout(timeout);
-    }
+    this.timerService.stopStopwatch();
+    this.startBtn = true;
+  }
+  ngAfterViewInit(): void {
+    const click$ = fromEvent(this.waitBtn.nativeElement, 'click')
+    click$.pipe(
+      takeUntil(this.destroyed$),
+      buffer(click$.pipe(debounceTime(300))),
+      map(clicks => clicks.length),
+      tap((clickLength) => {
+        if (clickLength === 2){
+          this.waitStopwatch();
+        }
+      })
+    ).subscribe();
   }
 }
