@@ -1,23 +1,19 @@
-import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import {buffer, take, takeUntil, tap, debounceTime, map} from 'rxjs/operators';
+import { Component, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {fromEvent} from "rxjs";
+import {buffer, takeUntil, tap, debounceTime, map} from 'rxjs/operators';
 
 import { UnsubscriberComponent } from './../unsubscriber/unsubscriber.component';
 import { TimeService } from '../../services/stopwatch.service';
 import { StopWatch } from '../../interfaces/stopwatch';
-import {fromEvent, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-stopwatch',
   templateUrl: './stopwatch.component.html',
   styleUrls: ['./stopwatch.component.css'],
 })
-export class StopwatchComponent extends UnsubscriberComponent implements OnDestroy
-{
+export class StopwatchComponent extends UnsubscriberComponent implements AfterViewInit, OnDestroy {
   stopwatch: StopWatch;
   startBtn = true;
-  firstClick = true;
-  lastClicked = 0;
-  subscriptionsDbClick: Subscription;
   @ViewChild('wait') waitBtn: ElementRef;
   constructor(private timerService: TimeService) {
     super();

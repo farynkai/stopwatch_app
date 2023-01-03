@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, timer, BehaviorSubject, Subscription, tap} from 'rxjs';
+import {Observable, timer, BehaviorSubject, Subscription} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StopWatch } from '../interfaces/stopwatch';
@@ -8,9 +8,9 @@ import { StopWatch } from '../interfaces/stopwatch';
 })
 export class TimeService {
   initialTime = 0;
-  timer$: BehaviorSubject<number> = new BehaviorSubject(this.initialTime);
+  timer$ = new BehaviorSubject(this.initialTime);
   lastStopedTime: number = this.initialTime;
-  timerSubscription: Subscription;
+  timerSubscription = new Subscription();
   isRunning = false;
   intervalSec = 0;
 
@@ -25,7 +25,7 @@ export class TimeService {
   startStopwatch(): void {
     this.timerSubscription = timer(0, 100).pipe(
         map((time: number): number => time + this.lastStopedTime)
-      ).subscribe(this.timer$);
+      ).subscribe((value) => this.timer$.next(value));
     this.isRunning = true;
   }
 
