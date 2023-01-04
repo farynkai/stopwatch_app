@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, timer, BehaviorSubject, Subscription} from 'rxjs';
+import { Observable, timer, BehaviorSubject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StopWatch } from '../interfaces/stopwatch';

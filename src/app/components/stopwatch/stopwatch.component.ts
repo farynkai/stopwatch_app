@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import {fromEvent} from "rxjs";
-import {buffer, takeUntil, tap, debounceTime, map} from 'rxjs/operators';
+import { fromEvent } from "rxjs";
+import { buffer, takeUntil, tap, debounceTime, map } from 'rxjs/operators';
 
 import { UnsubscriberComponent } from './../unsubscriber/unsubscriber.component';
 import { TimeService } from '../../services/stopwatch.service';
